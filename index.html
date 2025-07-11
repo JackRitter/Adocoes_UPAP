@@ -126,7 +126,8 @@
     </div>
     <div class="container">
         <h1>Cadastro de Adoção</h1>
-        <form action="#" method="post" enctype="multipart/form-data">
+        <!-- Action configurado para enviar os dados ao backend Java -->
+        <form action="CadastroAdocaoServlet" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Dados do Adotante</legend>
                 <div class="form-group">
@@ -221,30 +222,17 @@
                 <div class="form-group">
                     <label>Vacinado:</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="vacinadoSim" name="vacinado" value="Sim" onchange="toggleDateField('vacinadoSim', 'vacinadoDate')">
+                        <input type="checkbox" id="vacinadoSim" name="vacinado" value="Sim">
                         <label for="vacinadoSim">Sim</label>
-                    </div>
-                    <div id="vacinadoDate" style="display: none;" class="conditional-field">
-                        <div class="form-group">
-                            <label for="dataVacinacao">Data da Vacinação:</label>
-                            <input type="date" id="dataVacinacao" name="dataVacinacao">
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="fotoAnimal">Foto do Animal Adotado:</label>
-                    <input type="file" id="fotoAnimal" name="fotoAnimal" accept="image/*" onchange="previewFile(this, 'imagePreviewAnimal')">
+                    <label for="imagemAnimal">Foto do Animal (opcional):</label>
+                    <input type="file" id="imagemAnimal" name="imagemAnimal" accept="image/*" onchange="previewImage(event)">
                 </div>
                 <div class="image-preview-container">
-                    <img src="#" alt="Prévia da foto do animal" class="preview-image" id="imagePreviewAnimal">
-                </div>
-                <div class="form-group">
-                    <label for="fotoAdocao">Foto da Adoção:</label>
-                    <input type="file" id="fotoAdocao" name="fotoAdocao" accept="image/*" onchange="previewFile(this, 'imagePreviewAdocao')">
-                </div>
-                <div class="image-preview-container">
-                    <img src="#" alt="Prévia da foto da adoção" class="preview-image" id="imagePreviewAdocao">
+                    <img id="previewImage" class="preview-image" src="" alt="Prévia da imagem">
                 </div>
             </fieldset>
 
@@ -255,79 +243,36 @@
     </div>
 
     <script>
-        function previewFile(input, imgId) {
-            const preview = document.getElementById(imgId);
-            const file = input.files[0];
-            const reader = new FileReader();
-
-            reader.addEventListener("load", () => {
-                // convert image file to base64 string
+        // Função para mostrar a imagem de pré-visualização
+        function previewImage(event) {
+            var preview = document.getElementById('previewImage');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function() {
                 preview.src = reader.result;
-                preview.style.display = 'block'; // Show the image
-            }, false);
-
+                preview.style.display = 'block';
+            }
             if (file) {
                 reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
-                preview.style.display = 'none'; // Hide the image if no file selected
             }
         }
 
-        function validarCPF(cpf) {
-            cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
-            const cpfError = document.getElementById('cpfError');
-
-            if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
-                cpfError.style.display = 'block';
-                return false;
-            }
-
-            let sum = 0;
-            let remainder;
-
-            for (let i = 1; i <= 9; i++) {
-                sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-            }
-            remainder = (sum * 10) % 11;
-
-            if ((remainder === 10) || (remainder === 11)) {
-                remainder = 0;
-            }
-            if (remainder !== parseInt(cpf.substring(9, 10))) {
-                cpfError.style.display = 'block';
-                return false;
-            }
-
-            sum = 0;
-            for (let i = 1; i <= 10; i++) {
-                sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-            }
-            remainder = (sum * 10) % 11;
-
-            if ((remainder === 10) || (remainder === 11)) {
-                remainder = 0;
-            }
-            if (remainder !== parseInt(cpf.substring(10, 11))) {
-                cpfError.style.display = 'block';
-                return false;
-            }
-
-            cpfError.style.display = 'none';
-            return true;
-        }
-
+        // Função para mostrar/ocultar campos de data de desverminação
         function toggleDateField(checkboxId, dateFieldId) {
-            const checkbox = document.getElementById(checkboxId);
-            const dateField = document.getElementById(dateFieldId);
+            var checkbox = document.getElementById(checkboxId);
+            var dateField = document.getElementById(dateFieldId);
             if (checkbox.checked) {
                 dateField.style.display = 'block';
             } else {
                 dateField.style.display = 'none';
-                // Optionally clear the date fields when unchecked
-                const dateInputs = dateField.querySelectorAll('input[type="date"]');
-                dateInputs.forEach(input => input.value = '');
             }
+        }
+
+        // Validação do CPF
+        function validarCPF(cpf) {
+            const cpfRegex = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/;
+            const isValid = cpfRegex.test(cpf);
+            document.getElementById('cpfError').style.display = isValid ? 'none' : 'block';
         }
     </script>
 </body>
