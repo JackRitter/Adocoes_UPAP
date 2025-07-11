@@ -9,21 +9,21 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
-            flex-direction: column; /* Changed to column to stack logo and container */
+            flex-direction: column; 
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 0; /* Add some padding for better spacing on smaller screens */
+            padding: 20px 0;
         }
         .logo-container {
             margin-bottom: 20px;
             text-align: center;
         }
         .logo-container img {
-            max-width: 350px; /* Adjust logo size as needed */
+            max-width: 350px;
             height: auto;
-            border-radius: 0%; /* Optional: for a round logo */
+            border-radius: 0%;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
         }
         .container {
@@ -47,7 +47,7 @@
         }
         legend {
             font-weight: bold;
-            color: #007bff; /* A nice blue for legends */
+            color: #007bff;
             padding: 0 10px;
         }
         .form-group {
@@ -71,13 +71,10 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        .form-group input[type="file"] {
-            padding: 5px; /* Adjust padding for file input */
-        }
         .form-group button {
             width: 100%;
             padding: 10px 15px;
-            background-color: #28a745; /* Green for submit */
+            background-color: #28a745;
             color: white;
             border: none;
             border-radius: 4px;
@@ -94,16 +91,10 @@
             margin-top: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            display: none; /* Hidden by default */
+            display: none;
         }
         .image-preview-container {
             text-align: center;
-        }
-        .error-message {
-            color: red;
-            font-size: 0.9em;
-            margin-top: 5px;
-            display: none; /* Hidden by default */
         }
         .checkbox-group {
             display: flex;
@@ -112,11 +103,10 @@
         }
         .checkbox-group input[type="checkbox"] {
             margin-right: 10px;
-            width: auto; /* Override default input width */
+            width: auto;
         }
-        .conditional-field {
-            margin-left: 25px; /* Indent conditional fields */
-            margin-top: 5px;
+        .checkbox-group label {
+            margin-right: 15px;
         }
     </style>
 </head>
@@ -126,7 +116,6 @@
     </div>
     <div class="container">
         <h1>Cadastro de Adoção</h1>
-        <!-- Action configurado para enviar os dados ao backend Java -->
         <form action="CadastroAdocaoServlet" method="post" enctype="multipart/form-data">
             <fieldset>
                 <legend>Dados do Adotante</legend>
@@ -138,7 +127,6 @@
                     <label for="cpfAdotante">CPF:</label>
                     <input type="text" id="cpfAdotante" name="cpfAdotante" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" placeholder="Ex: 123.456.789-00" maxlength="14" required onblur="validarCPF(this.value)">
                     <small>Formato: XXX.XXX.XXX-XX (somente números ou com pontos e hífen)</small>
-                    <div id="cpfError" class="error-message">CPF inválido.</div>
                 </div>
                 <div class="form-group">
                     <label for="emailAdotante">E-mail:</label>
@@ -188,35 +176,28 @@
                     <div class="checkbox-group">
                         <input type="checkbox" id="castradoSim" name="castrado" value="Sim">
                         <label for="castradoSim">Sim</label>
+                        <input type="checkbox" id="castradoNao" name="castrado" value="Nao">
+                        <label for="castradoNao">Não</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Desverminado 1ª Dose:</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="desverminado1aDoseSim" name="desverminado1aDose" value="Sim" onchange="toggleDateField('desverminado1aDoseSim', 'desverminado1aDoseDate')">
+                        <input type="checkbox" id="desverminado1aDoseSim" name="desverminado1aDose" value="Sim">
                         <label for="desverminado1aDoseSim">Sim</label>
-                           <input type="checkbox" id="desverminado1aDoseNao" name="desverminado1aDose" value="Não">
-                    </div>
-                    <div id="desverminado1aDoseDate" style="display: none;" class="conditional-field">
-                        <div class="form-group">
-                            <label for="dataDesverminado1aDose">Data da 1ª Dose:</label>
-                            <input type="date" id="dataDesverminado1aDose" name="dataDesverminado1aDose">
-                        </div>
+                        <input type="checkbox" id="desverminado1aDoseNao" name="desverminado1aDose" value="Nao">
+                        <label for="desverminado1aDoseNao">Não</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Desverminado 2ª Dose:</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="desverminado2aDoseSim" name="desverminado2aDose" value="Sim" onchange="toggleDateField('desverminado2aDoseSim', 'desverminado2aDoseDate')">
+                        <input type="checkbox" id="desverminado2aDoseSim" name="desverminado2aDose" value="Sim">
                         <label for="desverminado2aDoseSim">Sim</label>
-                    </div>
-                    <div id="desverminado2aDoseDate" style="display: none;" class="conditional-field">
-                        <div class="form-group">
-                            <label for="dataDesverminado2aDose">Data da 2ª Dose:</label>
-                            <input type="date" id="dataDesverminado2aDose" name="dataDesverminado2aDose">
-                        </div>
+                        <input type="checkbox" id="desverminado2aDoseNao" name="desverminado2aDose" value="Nao">
+                        <label for="desverminado2aDoseNao">Não</label>
                     </div>
                 </div>
 
@@ -225,15 +206,21 @@
                     <div class="checkbox-group">
                         <input type="checkbox" id="vacinadoSim" name="vacinado" value="Sim">
                         <label for="vacinadoSim">Sim</label>
+                        <input type="checkbox" id="vacinadoNao" name="vacinado" value="Nao">
+                        <label for="vacinadoNao">Não</label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="imagemAnimal">Foto do Animal (opcional):</label>
-                    <input type="file" id="imagemAnimal" name="imagemAnimal" accept="image/*" onchange="previewImage(event)">
+                    <label for="fotoAnimal">Foto do Animal:</label>
+                    <input type="file" id="fotoAnimal" name="fotoAnimal" accept="image/*" required>
+                    <img id="previewImagem" class="preview-image" src="" alt="Pré-visualização da Foto">
                 </div>
-                <div class="image-preview-container">
-                    <img id="previewImage" class="preview-image" src="" alt="Prévia da imagem">
+
+                <div class="form-group">
+                    <label for="fotoAdocao">Foto da Adoção (opcional):</label>
+                    <input type="file" id="fotoAdocao" name="fotoAdocao" accept="image/*">
+                    <img id="previewFotoAdocao" class="preview-image" src="" alt="Pré-visualização da Foto da Adoção">
                 </div>
             </fieldset>
 
@@ -244,37 +231,31 @@
     </div>
 
     <script>
-        // Função para mostrar a imagem de pré-visualização
-        function previewImage(event) {
-            var preview = document.getElementById('previewImage');
-            var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function() {
-                preview.src = reader.result;
-                preview.style.display = 'block';
-            }
+        // Exemplo de pré-visualização da imagem
+        document.getElementById('fotoAnimal').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImagem').src = e.target.result;
+                document.getElementById('previewImagem').style.display = 'block';
+            };
             if (file) {
                 reader.readAsDataURL(file);
             }
-        }
+        });
 
-        // Função para mostrar/ocultar campos de data de desverminação
-        function toggleDateField(checkboxId, dateFieldId) {
-            var checkbox = document.getElementById(checkboxId);
-            var dateField = document.getElementById(dateFieldId);
-            if (checkbox.checked) {
-                dateField.style.display = 'block';
-            } else {
-                dateField.style.display = 'none';
+        // Exemplo de pré-visualização da Foto da Adoção (opcional)
+        document.getElementById('fotoAdocao').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewFotoAdocao').src = e.target.result;
+                document.getElementById('previewFotoAdocao').style.display = 'block';
+            };
+            if (file) {
+                reader.readAsDataURL(file);
             }
-        }
-
-        // Validação do CPF
-        function validarCPF(cpf) {
-            const cpfRegex = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/;
-            const isValid = cpfRegex.test(cpf);
-            document.getElementById('cpfError').style.display = isValid ? 'none' : 'block';
-        }
+        });
     </script>
 </body>
 </html>
