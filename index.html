@@ -108,6 +108,14 @@
         .checkbox-group label {
             margin-right: 15px;
         }
+        .date-field {
+            display: none;
+            margin-top: 10px;
+        }
+        .vacina-field {
+            display: none;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -184,78 +192,84 @@
                 <div class="form-group">
                     <label>Desverminado 1ª Dose:</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="desverminado1aDoseSim" name="desverminado1aDose" value="Sim">
+                        <input type="checkbox" id="desverminado1aDoseSim" name="desverminado1aDose" value="Sim" onchange="toggleDataField('desverminado1aDose', this)">
                         <label for="desverminado1aDoseSim">Sim</label>
-                        <input type="checkbox" id="desverminado1aDoseNao" name="desverminado1aDose" value="Nao">
+                        <input type="checkbox" id="desverminado1aDoseNao" name="desverminado1aDose" value="Nao" onchange="toggleDataField('desverminado1aDose', this)">
                         <label for="desverminado1aDoseNao">Não</label>
+                    </div>
+                    <div class="date-field" id="desverminado1aDoseDateField">
+                        <label for="dataDesverminacao1aDose">Data da Desverminação (1ª Dose):</label>
+                        <input type="date" id="dataDesverminacao1aDose" name="dataDesverminacao1aDose">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Desverminado 2ª Dose:</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="desverminado2aDoseSim" name="desverminado2aDose" value="Sim">
+                        <input type="checkbox" id="desverminado2aDoseSim" name="desverminado2aDose" value="Sim" onchange="toggleDataField('desverminado2aDose', this)">
                         <label for="desverminado2aDoseSim">Sim</label>
-                        <input type="checkbox" id="desverminado2aDoseNao" name="desverminado2aDose" value="Nao">
+                        <input type="checkbox" id="desverminado2aDoseNao" name="desverminado2aDose" value="Nao" onchange="toggleDataField('desverminado2aDose', this)">
                         <label for="desverminado2aDoseNao">Não</label>
+                    </div>
+                    <div class="date-field" id="desverminado2aDoseDateField">
+                        <label for="dataDesverminacao2aDose">Data da Desverminação (2ª Dose):</label>
+                        <input type="date" id="dataDesverminacao2aDose" name="dataDesverminacao2aDose">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Vacinado:</label>
                     <div class="checkbox-group">
-                        <input type="checkbox" id="vacinadoSim" name="vacinado" value="Sim">
+                        <input type="checkbox" id="vacinadoSim" name="vacinado" value="Sim" onchange="toggleVacinadoFields(this)">
                         <label for="vacinadoSim">Sim</label>
-                        <input type="checkbox" id="vacinadoNao" name="vacinado" value="Nao">
+                        <input type="checkbox" id="vacinadoNao" name="vacinado" value="Nao" onchange="toggleVacinadoFields(this)">
                         <label for="vacinadoNao">Não</label>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="fotoAnimal">Foto do Animal:</label>
-                    <input type="file" id="fotoAnimal" name="fotoAnimal" accept="image/*" required>
-                    <img id="previewImagem" class="preview-image" src="" alt="Pré-visualização da Foto">
-                </div>
-
-                <div class="form-group">
-                    <label for="fotoAdocao">Foto da Adoção (opcional):</label>
-                    <input type="file" id="fotoAdocao" name="fotoAdocao" accept="image/*">
-                    <img id="previewFotoAdocao" class="preview-image" src="" alt="Pré-visualização da Foto da Adoção">
+                    <div class="date-field" id="vacinadoDateField">
+                        <label for="dataVacinacao">Data da Vacinação:</label>
+                        <input type="date" id="dataVacinacao" name="dataVacinacao">
+                    </div>
+                    <div class="vacina-field" id="vacinaField">
+                        <label for="nomeVacina">Vacina:</label>
+                        <input type="text" id="nomeVacina" name="nomeVacina" maxlength="20" placeholder="Nome da vacina" />
+                    </div>
                 </div>
             </fieldset>
 
+            <!-- Campos de fotos -->
             <div class="form-group">
-                <button type="submit">Cadastrar Adoção</button>
+                <label for="fotoAnimal">Foto do Animal:</label>
+                <input type="file" id="fotoAnimal" name="fotoAnimal" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="fotoAdocao">Foto da Adoção:</label>
+                <input type="file" id="fotoAdocao" name="fotoAdocao" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Cadastrar</button>
             </div>
         </form>
     </div>
 
     <script>
-        // Exemplo de pré-visualização da imagem
-        document.getElementById('fotoAnimal').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('previewImagem').src = e.target.result;
-                document.getElementById('previewImagem').style.display = 'block';
-            };
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        });
+        function toggleDataField(idPrefix, checkbox) {
+            const dateField = document.getElementById(idPrefix + 'DateField');
+            dateField.style.display = checkbox.checked && checkbox.value === 'Sim' ? 'block' : 'none';
+        }
 
-        // Exemplo de pré-visualização da Foto da Adoção (opcional)
-        document.getElementById('fotoAdocao').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('previewFotoAdocao').src = e.target.result;
-                document.getElementById('previewFotoAdocao').style.display = 'block';
-            };
-            if (file) {
-                reader.readAsDataURL(file);
+        function toggleVacinadoFields(checkbox) {
+            const dateField = document.getElementById('vacinadoDateField');
+            const vacinaField = document.getElementById('vacinaField');
+            if (checkbox.checked && checkbox.value === 'Sim') {
+                dateField.style.display = 'block';
+                vacinaField.style.display = 'block';
+            } else {
+                dateField.style.display = 'none';
+                vacinaField.style.display = 'none';
             }
-        });
+        }
     </script>
 </body>
 </html>
