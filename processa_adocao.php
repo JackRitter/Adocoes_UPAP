@@ -1,17 +1,16 @@
 <?php
-// Configurações do banco de dados
-//  codigo original ---- $host = 'localhost';//
-$host ''postgresql://neondb_owner:npg_S0WoDsRpCtg4@ep-still-moon-adagjucu-pooler.c-2.us-east-1.aws.neon.tech/adocaocaes?sslmode=require&channel_binding=require'
-$usuario = 'JackRitter'
-$senha = 'Mct3p3ptmc';
-$banco = 'adocaocaes';
+$host = 'ep-still-moon-adagjucu-pooler.c-2.us-east-1.aws.neon.tech';
+$db = 'adocaocaes';
+$user = 'neondb_owner';
+$password = 'npg_S0WoDsRpCtg4';
 
-// Conexão
-$conn = new mysqli($host, $usuario, $senha, $banco);
+$dsn = "pgsql:host=$host;port=5432;dbname=$db;sslmode=require;";
 
-// Verifica conexão
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
+try {
+    $pdo = new PDO($dsn, $user, $password);
+    echo "Conexão realizada com sucesso!";
+} catch (PDOException $e) {
+    echo "Erro na conexão: " . $e->getMessage();
 }
 
 // Captura os dados do formulário
