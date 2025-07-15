@@ -61,12 +61,24 @@ $stmt->bind_param("ssssssssssssssssssss",
     $fotoAnimal, $fotoAdocao
 );
 
+
+
 // Executa
 if ($stmt->execute()) {
     echo "Cadastro realizado com sucesso!";
 } else {
     echo "Erro ao cadastrar: " . $stmt->error;
 }
+
+//TESTE PARA VER SE ESTA PEGANDO CORRETAMENTE OS DADOS//
+
+echo "Cadastro realizado com sucesso!!";
+print_r($_POST);
+print_r($_FILES);
+
+
+    
+
 
 // Encerra conexões
 $stmt->close();
