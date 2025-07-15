@@ -1,9 +1,10 @@
 <?php
 // Configurações do banco de dados
-$host = 'localhost';
+//  codigo original ---- $host = 'localhost';//
+$host 'postgresql://neondb_owner:npg_S0WoDsRpCtg4@ep-still-moon-adagjucu-pooler.c-2.us-east-1.aws.neon.tech/adocaocaes?sslmode=require&channel_binding=require'
 $usuario = 'root'; // ou outro usuário do banco
-$senha = '';       // sua senha do MySQL
-$banco = 'upap_adocoes';
+$senha = 'psql -h pg.neon.tech';L
+$banco = 'adocaocaes';
 
 // Conexão
 $conn = new mysqli($host, $usuario, $senha, $banco);
