@@ -1,7 +1,7 @@
 <?php
 // Configurações do banco de dados
 //  codigo original ---- $host = 'localhost';//
-$host 'https://github.com/login?client_id=08cb4f3eb1c9976a92ee&return_to=%2Flogin%2Foauth%2Fauthorize%3Fclient_id%3D08cb4f3eb1c9976a92ee%26redirect_uri%3Dhttps%253A%252F%252Fconsole.neon.tech%252Frealms%252Fprod-realm%252Fbroker%252Fgithub%252Fendpoint%26response_type%3Dcode%26scope%3Duser%253Aemail%26state%3DUbEW4X8IwAp-jGO1L9yFneTI7mF48c0NqKIs3YMUODY.tsPi2BUObI8.FggMbeJNQvGDpiNKH3TE_A.eyJydSI6Imh0dHBzOi8vY29uc29sZS5uZW9uLnRlY2gvYXV0aC9rZXljbG9hay9jYWxsYmFjayIsInJ0IjoiY29kZSIsInN0IjoiYXhZYWZIUUFJRDNnME9pSXRkalhpQT09LCwsIn0'
+$host ''postgresql://neondb_owner:npg_S0WoDsRpCtg4@ep-still-moon-adagjucu-pooler.c-2.us-east-1.aws.neon.tech/adocaocaes?sslmode=require&channel_binding=require'
 $usuario = 'JackRitter'
 $senha = 'Mct3p3ptmc';
 $banco = 'adocaocaes';
