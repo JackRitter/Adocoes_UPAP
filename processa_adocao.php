@@ -1,18 +1,21 @@
 <?php
 
-//TIRANDO FORA PROVISORIAMENTE A CONEXAO COM BANCO DE DADOS//
 
-//$host = 'ep-still-moon-adagjucu-pooler.c-2.us-east-1.aws.neon.tech';$db = 'adocaocaes';$user = 'neondb_owner';$password = 'npg_S0WoDsRpCtg4';//
 
-//$dsn = "pgsql:host=$host;port=5432;dbname=$db;sslmode=require;";
+$host = 'ep-still-moon-adagjucu-pooler.c-2.us-east-1.aws.neon.tech';
+$db = 'adocaocaes';
+$user = 'neondb_owner';
+$password = 'npg_S0WoDsRpCtg4';
 
-//try {
-//    $pdo = new PDO($dsn, $user, $password);
-//    echo "Conexão realizada com sucesso!";
-//} catch (PDOException $e) {
- //   echo "Erro na conexão: " . $e->getMessage();
-//}
-//
+$dsn = "pgsql:host=$host;port=5432;dbname=$db;sslmode=require;";
+
+try {
+    $pdo = new PDO($dsn, $user, $password);
+    echo "Conexão realizada com sucesso!";
+} catch (PDOException $e) {
+   echo "Erro na conexão: " . $e->getMessage();
+}
+
 
 // Captura os dados do formulário
 $nomeAdotante = $_POST['nomeAdotante'];
@@ -43,16 +46,15 @@ $nomeVacina = $_POST['nomeVacina'] ?? null;
 $fotoAnimal = $_FILES['fotoAnimal']['tmp_name'] ? file_get_contents($_FILES['fotoAnimal']['tmp_name']) : null;
 $fotoAdocao = $_FILES['fotoAdocao']['tmp_name'] ? file_get_contents($_FILES['fotoAdocao']['tmp_name']) : null;
 
-// Prepara a SQL
-//TIREI ESSA PARTE FORA TB
-//$stmt = $conn->prepare("INSERT INTO adocoes (
- //   nomeAdotante, cpfAdotante, emailAdotante, telefoneAdotante, enderecoAdotante,
-   // nomeAnimal, racaAnimal, corAnimal, sexoAnimal, dataAdocao,
- //   castrado, desverminado1aDose, dataDesverminacao1aDose,
- //   desverminado2aDose, dataDesverminacao2aDose,
-  //  vacinado, dataVacinacao, nomeVacina,
-  //  fotoAnimal, fotoAdocao
-//) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+Prepara a SQL
+
+$stmt = $conn->prepare("INSERT INTO adocoes (  nomeAdotante, cpfAdotante, emailAdotante, telefoneAdotante, enderecoAdotante,
+nomeAnimal, racaAnimal, corAnimal, sexoAnimal, dataAdocao,
+ castrado, desverminado1aDose, dataDesverminacao1aDose,
+ desverminado2aDose, dataDesverminacao2aDose,
+  vacinado, dataVacinacao, nomeVacina,
+  fotoAnimal, fotoAdocao
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 $stmt->bind_param("ssssssssssssssssssss",
     $nomeAdotante, $cpfAdotante, $emailAdotante, $telefoneAdotante, $enderecoAdotante,
